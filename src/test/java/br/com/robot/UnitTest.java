@@ -1,10 +1,9 @@
 package br.com.robot;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,7 +65,7 @@ public class UnitTest {
 			areaService.validateAreaLimit(area, 4); 
 			areaService.validateAreaLimit(area, 0); 
 		} catch (Exception e) {
-			fail();
+			fail("Should not throw exception");
 		}
 	}
 	
