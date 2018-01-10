@@ -10,6 +10,7 @@ import br.com.robot.enums.Direction;
 import br.com.robot.exception.MovementException;
 import br.com.robot.model.Area;
 import br.com.robot.model.Robot;
+import br.com.robot.model.factory.AreaFactory;
 import br.com.robot.service.interfaces.AreaService;
 import br.com.robot.service.interfaces.RobotService;
 
@@ -17,19 +18,22 @@ import br.com.robot.service.interfaces.RobotService;
 public class RobotServiceImpl implements RobotService {
 
 	@Autowired
-	private AreaService areaService;
+	public AreaService areaService;
+	
+	@Autowired
+	public AreaFactory areaFactory;
 
-	private Area area;
+	public Area area;
 
 	public void move(Robot robot, String route) throws Exception {
 
-		this.area = areaService.createArea(4, 4);
+		this.area = areaFactory.createArea(4, 4);
 		validateMovement(route);
 
 		for (String movement : route.split("")) {
 			switch (movement) {
 			case "M":
-				moveForward(robot);
+				doStep(robot);
 				break;
 
 			case "L":
@@ -44,7 +48,7 @@ public class RobotServiceImpl implements RobotService {
 
 	}
 
-	private void moveForward(Robot robot) throws MovementException {
+	public void doStep(Robot robot) throws MovementException {
 
 		int y = robot.getCoordinate().getY();
 		int x = robot.getCoordinate().getX();
@@ -72,7 +76,7 @@ public class RobotServiceImpl implements RobotService {
 		}
 	}
 
-	private void turnRigth(Robot robot) {
+	public void turnRigth(Robot robot) {
 
 		int ordinalDirection = robot.getDirection().ordinal();
 		if (++ordinalDirection > 3) {
@@ -82,7 +86,7 @@ public class RobotServiceImpl implements RobotService {
 		robot.setDirection(Direction.getDirectionByOrdinal(ordinalDirection));
 	}
 
-	private void turnLeft(Robot robot) {
+	public void turnLeft(Robot robot) {
 
 		int ordinalDirection = robot.getDirection().ordinal();
 		if (--ordinalDirection < 0) {
@@ -92,7 +96,7 @@ public class RobotServiceImpl implements RobotService {
 		robot.setDirection(Direction.getDirectionByOrdinal(ordinalDirection));
 	}
 
-	private void validateMovement(String move) throws MovementException {
+	public void validateMovement(String move) throws MovementException {
 
 		if (StringUtils.isEmpty(move)) {
 			throw new MovementException("Movimento não informado");

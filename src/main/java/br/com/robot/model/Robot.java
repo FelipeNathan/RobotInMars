@@ -4,8 +4,8 @@ import br.com.robot.enums.Direction;
 
 public class Robot {
 
-	private Coordinate coordinate = new Coordinate(0,0);
-	private Direction direction = Direction.NORTH;
+	private Coordinate coordinate;
+	private Direction direction;
 	
 	public Coordinate getCoordinate() {
 		return coordinate;

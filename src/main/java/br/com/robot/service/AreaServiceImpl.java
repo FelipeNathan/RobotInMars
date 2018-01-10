@@ -10,11 +10,6 @@ import br.com.robot.service.interfaces.AreaService;
 public class AreaServiceImpl implements AreaService {
 
 	@Override
-	public Area createArea(int x, int y) {
-		return new Area(x, y);
-	}
-
-	@Override
 	public void validateAreaLimit(Area area, int movementPosition) throws MovementException {
 		
 		if (area == null) {

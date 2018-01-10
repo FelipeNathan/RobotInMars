@@ -20,19 +20,19 @@ public class IntegratedTest {
 	private TestRestTemplate testRestTemplate;
 	
 	@Test
-	public void shouldMoveTo_2_0_S() {
+	public void shouldMoveToX2Y0South() {
 		String response = testRestTemplate.getForObject("/rest/mars/MMRMMRMM", String.class);
 		assertEquals("(2,0,S)", response);
 	}
 	
 	@Test
-	public void shouldMoveTo_0_2_W() {
+	public void shouldMoveToX0Y2West() {
 		String response = testRestTemplate.getForObject("/rest/mars/MML", String.class);
 		assertEquals("(0,2,W)", response);
 	}
 	
 	@Test
-	public void shouldMoveTo_0_2_W_ExecutingTwice() {
+	public void shouldMoveToX0Y2WestExecutingTwice() {
 		String response = testRestTemplate.getForObject("/rest/mars/MML", String.class);
 		assertEquals("(0,2,W)", response);
 		
@@ -43,6 +43,12 @@ public class IntegratedTest {
 	@Test
 	public void shouldReturnBadRequestWithInvalidCommand() {
 		ResponseEntity<String> response = this.testRestTemplate.getForEntity("/rest/mars/AAA", String.class);
+		assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+	}
+	
+	@Test
+	public void shouldReturnBadRequestWithInvalidRoute() {
+		ResponseEntity<String> response = this.testRestTemplate.getForEntity("/rest/", String.class);
 		assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
 	}
 	
