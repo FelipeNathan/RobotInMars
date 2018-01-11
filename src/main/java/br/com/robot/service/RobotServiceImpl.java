@@ -29,9 +29,9 @@ public class RobotServiceImpl implements RobotService {
 
 		this.area = areaFactory.createArea(4, 4);
 		validateMovement(route);
-
+		
 		for (String movement : route.split("")) {
-			switch (movement) {
+			switch (movement.toUpperCase()) {
 			case "M":
 				doStep(robot);
 				break;
@@ -102,7 +102,7 @@ public class RobotServiceImpl implements RobotService {
 			throw new MovementException("Movimento não informado");
 		}
 
-		if (Pattern.matches("^.*[^MRL].*$", move)) {
+		if (Pattern.matches("^.*(?i:[^MRL]).*$", move)) {
 			throw new MovementException("Há movimentos inválidos, os movimentos permitidos são: 'M', 'R' e 'L'");
 		}
 	}
